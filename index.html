@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arthur Teng | Portfolio</title>
+  <meta name="description" content="Arthur Teng – full-stack developer and NUS Computer Science student building secure, end-to-end web applications." />
+  <style>
+    :root {
+      --bg: #081120;
+      --bg-soft: rgba(14, 24, 42, 0.72);
+      --panel: rgba(11, 20, 35, 0.8);
+      --panel-strong: rgba(8, 15, 28, 0.95);
+      --border: rgba(148, 163, 184, 0.16);
+      --text: #e5eefc;
+      --muted: #9fb1cc;
+      --primary: #7dd3fc;
+      --primary-strong: #38bdf8;
+      --accent: #a78bfa;
+      --success: #86efac;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      --radius: 24px;
+      --radius-sm: 18px;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 28%),
+        radial-gradient(circle at 85% 20%, rgba(167, 139, 250, 0.18), transparent 22%),
+        radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.08), transparent 18%),
+        linear-gradient(180deg, #07101d 0%, #091321 35%, #050b15 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: linear-gradient(to bottom, rgba(255,255,255,.35), transparent 75%);
+      opacity: 0.35;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 2.5rem 0;
+      position: relative;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 38px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary));
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      align-items: end;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .section-heading p {
+      max-width: 580px;
+      color: var(--muted);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(4, 10, 20, 0.55);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .nav-wrap {
+      width: min(calc(100% - 2rem), var(--max-width));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: 1.1rem;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      color: var(--muted);
+      padding: 0.7rem 0.95rem;
+      border-radius: 999px;
+      transition: 0.25s ease;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: var(--text);
+      background: rgba(125, 211, 252, 0.1);
+    }
+
+    .hero {
+      padding: 3rem 0 2rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .hero-side,
+    .glass-card,
+    .project-card,
+    .skill-card,
+    .contact-card,
+    .timeline-card {
+      background: linear-gradient(180deg, rgba(15, 26, 46, 0.78), rgba(7, 14, 27, 0.92));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
+
+    .hero-main {
+      padding: 2.4rem;
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -80px;
+      top: -80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.25), transparent 70%);
+      z-index: -1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 0.6rem;
+      align-items: center;
+      padding: 0.45rem 0.85rem;
+      border: 1px solid rgba(125, 211, 252, 0.18);
+      background: rgba(125, 211, 252, 0.07);
+      border-radius: 999px;
+      color: var(--primary);
+      width: fit-content;
+      font-size: 0.84rem;
+      margin-bottom: 1.3rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5.6rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      max-width: 10ch;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero-copy {
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .hero-actions {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.92rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-strong), var(--accent));
+      color: #04111f;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.08);
+      color: var(--text);
+    }
+
+    .hero-metrics {
+      margin-top: 2.25rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.9rem;
+    }
+
+    .metric {
+      padding: 1rem;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.3rem;
+      letter-spacing: -0.04em;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    .hero-side {
+      padding: 1.2rem;
+      display: grid;
+      gap: 1rem;
+      align-content: start;
+    }
+
+    .profile-panel {
+      padding: 1.4rem;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 26px;
+      display: grid;
+      place-items: center;
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #04111f;
+      background: linear-gradient(135deg, var(--primary), #c4b5fd);
+      margin-bottom: 1rem;
+    }
+
+    .profile-panel h2 {
+      font-size: 1.35rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.35rem;
+    }
+
+    .profile-panel p,
+    .stat-line,
+    .list-muted li,
+    .timeline-card p,
+    .project-card p,
+    .contact-card p {
+      color: var(--muted);
+    }
+
+    .stat-list {
+      list-style: none;
+      margin-top: 1rem;
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .stat-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .stat-line strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 0.78rem;
+      border-radius: 999px;
+      background: rgba(125, 211, 252, 0.08);
+      border: 1px solid rgba(125, 211, 252, 0.12);
+      color: #d7f0fd;
+      font-size: 0.88rem;
+    }
+
+    .glass-card {
+      padding: 1.5rem;
+    }
+
+    .quick-links {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 0.8rem;
+    }
+
+    .quick-links a {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.95rem 1rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+      transition: 0.25s ease;
+      color: var(--muted);
+    }
+
+    .quick-links a:hover {
+      background: rgba(125, 211, 252, 0.08);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    .about-grid,
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.5rem;
+    }
+
+    .about-story {
+      padding: 2rem;
+    }
+
+    .about-story p + p {
+      margin-top: 1rem;
+    }
+
+    .highlights {
+      margin-top: 1.6rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+    }
+
+    .highlight {
+      padding: 1rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .highlight strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .timeline-stack {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .timeline-card {
+      padding: 1.3rem;
+    }
+
+    .timeline-card small {
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.76rem;
+    }
+
+    .timeline-card h3 {
+      margin: 0.45rem 0 0.2rem;
+      font-size: 1.08rem;
+      letter-spacing: -0.03em;
+    }
+
+    .timeline-card .meta {
+      color: #cad9ef;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .skills-grid,
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+    }
+
+    .skill-card,
+    .project-card,
+    .contact-card {
+      padding: 1.5rem;
+    }
+
+    .skill-card h3,
+    .project-card h3,
+    .contact-card h3 {
+      font-size: 1.2rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.8rem;
+    }
+
+    .list-muted {
+      list-style: none;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .list-muted li {
+      position: relative;
+      padding-left: 1rem;
+    }
+
+    .list-muted li::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      position: absolute;
+      left: 0;
+      top: 0.7rem;
+      box-shadow: 0 0 0 6px rgba(125, 211, 252, 0.08);
+    }
+
+    .project-card.featured {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.4rem;
+      align-items: center;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin: 1rem 0 1.2rem;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .project-visual {
+      padding: 1.2rem;
+      border-radius: 22px;
+      min-height: 250px;
+      background:
+        radial-gradient(circle at top left, rgba(125, 211, 252, 0.16), transparent 35%),
+        linear-gradient(180deg, rgba(16, 28, 49, 0.95), rgba(7, 14, 27, 0.95));
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      display: grid;
+      gap: 0.85rem;
+      align-content: center;
+    }
+
+    .mock-line {
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.3), rgba(167, 139, 250, 0.2));
+      border: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .mock-line.small {
+      height: 20px;
+      width: 68%;
+    }
+
+    .contact-card .quick-links {
+      margin-top: 1rem;
+    }
+
+    footer {
+      padding: 1.5rem 0 3rem;
+      color: var(--muted);
+    }
+
+    .footer-wrap {
+      width: min(calc(100% - 2rem), var(--max-width));
+      margin: 0 auto;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.08);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid,
+      .project-card.featured {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card.featured {
+        grid-column: span 1;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero {
+        padding-top: 2.4rem;
+      }
+
+      .hero-main,
+      .hero-side,
+      .about-story,
+      .skill-card,
+      .project-card,
+      .contact-card,
+      .timeline-card {
+        padding: 1.25rem;
+      }
+
+      .hero-metrics,
+      .highlights {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 4rem 0;
+      }
+
+      nav {
+        gap: 0.2rem;
+      }
+
+      nav a {
+        padding: 0.55rem 0.7rem;
+        font-size: 0.88rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrap">
+      <a href="#home" class="logo">Arthur<span>Teng</span></a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-main">
+          <div>
+            <div class="eyebrow">NUS Computer Science • Full-Stack Development • Security-Aware Engineering</div>
+            <h1>Building <span>secure</span>, useful web products.</h1>
+            <p class="hero-copy">
+              I am Arthur Teng, a Computer Science undergraduate at the National University of Singapore. I build end-to-end applications that combine clean frontend experiences, reliable backend systems, and practical security thinking.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="resume.pdf" download>Download CV</a>
+              <a class="btn btn-secondary" href="#projects">View Projects</a>
+            </div>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric">
+              <strong>4.15 / 5.0</strong>
+              <span>NUS GPA</span>
+            </div>
+            <div class="metric">
+              <strong>Full-Stack</strong>
+              <span>React, TypeScript, Go, Node.js</span>
+            </div>
+            <div class="metric">
+              <strong>Security-Aware</strong>
+              <span>OWASP, JWT, RBAC, testing tools</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="profile-panel">
+            <div class="avatar">AT</div>
+            <h2>Arthur Teng</h2>
+            <p>Full-Stack Developer &amp; Computer Science Student</p>
+            <ul class="stat-list">
+              <li class="stat-line"><span>University</span><strong>NUS</strong></li>
+              <li class="stat-line"><span>Email</span><strong>arthurteng@outlook.com</strong></li>
+              <li class="stat-line"><span>Focus</span><strong>Web systems &amp; secure development</strong></li>
+            </ul>
+            <div class="tag-group">
+              <span class="tag">React</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Go</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Security</span>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <div class="section-label">Quick Links</div>
+            <div class="quick-links">
+              <a href="https://github.com/archonward" target="_blank" rel="noopener"><span>GitHub</span><span>↗</span></a>
+              <a href="https://www.linkedin.com/in/arthur-teng-bb09b7271/" target="_blank" rel="noopener"><span>LinkedIn</span><span>↗</span></a>
+              <a href="mailto:arthurteng@outlook.com"><span>Email</span><span>↗</span></a>
+              <a href="tel:+6588694566"><span>Mobile</span><span>↗</span></a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <div class="section-label" style="font-size: 45px;">About Me</div>
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <div class="glass-card about-story">
+            <p>
+              Hello! I’m Arthur Teng, a Computer Science undergraduate at the National University of Singapore (GPA 4.15/5.0). I have a passion for full-stack development and enjoy bringing ideas to life through software. My core strengths span React, TypeScript, Go, Node.js, SQL/NoSQL databases, and secure development practices.
+            </p>
+            <p>
+              Beyond the code editor, I served as a pilot trainee in the Republic of Singapore Air Force, where I learned to stay calm under pressure and reflect critically on performance. I also led a fundraising project with ACRES, creating a YouTube channel to raise awareness for wildlife conservation. In my spare time, I build personal projects such as a portfolio tracker, teach myself PostgreSQL, and experiment with security tools such as Burp Suite, Caido, and Kali Linux.
+            </p>
+
+            <div class="highlights">
+              <div class="highlight">
+                <strong>Systems mindset</strong>
+                <p>Comfortable thinking across frontend, backend, data flow, and security concerns.</p>
+              </div>
+              <div class="highlight">
+                <strong>Calm under pressure</strong>
+                <p>Built through RSAF pilot trainee experience and reflective performance culture.</p>
+              </div>
+              <div class="highlight">
+                <strong>Hands-on learner</strong>
+                <p>Self-taught PostgreSQL and practical web security testing workflows.</p>
+              </div>
+              <div class="highlight">
+                <strong>Purpose-driven work</strong>
+                <p>Led an ACRES awareness initiative supporting wildlife conservation outreach.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-stack">
+            <div class="timeline-card">
+              <small>Education</small>
+              <h3>National University of Singapore</h3>
+              <div class="meta">Bachelor of Computing in Computer Science • Aug 2024 – May 2028</div>
+              <p>Current GPA: 4.15 / 5.0</p>
+            </div>
+            <div class="timeline-card">
+              <small>Work Experience</small>
+              <h3>RSAF — Pilot Trainee</h3>
+              <div class="meta">Jul 2022 – May 2024</div>
+              <p>Developed situational awareness, prioritisation, and disciplined debrief habits focused on continuous improvement.</p>
+            </div>
+            <div class="timeline-card">
+              <small>Community</small>
+              <h3>ACRES — Project Manager</h3>
+              <div class="meta">Aug 2020 – May 2021</div>
+              <p>Spearheaded a fundraising initiative and created a YouTube channel to spread awareness of wildlife habitat conservation.</p>
+            </div>
+            <div class="timeline-card">
+              <small>Affiliation</small>
+              <h3>Goethe Institut</h3>
+              <div class="meta">German Language • A2 Level</div>
+              <p>Built language proficiency through structured study and formal certification.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <div class="section-label"  style="font-size: 45px;">Skills</div>
+          </div>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3>Frontend &amp; Product UI</h3>
+            <ul class="list-muted">
+              <li>React and TypeScript component development</li>
+              <li>Routing, state handling, and interactive interfaces</li>
+              <li>Clean single-page portfolio and application layouts</li>
+              <li>Readable, structured presentation of technical content</li>
+            </ul>
+          </div>
+
+          <div class="skill-card">
+            <h3>Backend &amp; APIs</h3>
+            <ul class="list-muted">
+              <li>Node.js / Express REST API development</li>
+              <li>Go backend design with modular separation of concerns</li>
+              <li>CRUD workflows, validation, and structured error handling</li>
+              <li>Authentication using JWT and sessions</li>
+            </ul>
+          </div>
+
+          <div class="skill-card">
+            <h3>Data &amp; Modelling</h3>
+            <ul class="list-muted">
+              <li>SQL and NoSQL databases including SQLite, PostgreSQL, and MongoDB</li>
+              <li>Relational data modelling and schema design</li>
+              <li>Historical snapshot tracking and Excel-based data ingestion</li>
+              <li>Data integrity and application-level backend logic</li>
+            </ul>
+          </div>
+
+          <div class="skill-card">
+            <h3>Security &amp; Engineering Discipline</h3>
+            <ul class="list-muted">
+              <li>OWASP basics, RBAC thinking, and least-privilege principles</li>
+              <li>Security testing with Burp Suite, Caido, and Kali Linux</li>
+              <li>CORS setup and safer frontend-backend communication</li>
+              <li>Reflective iteration and performance improvement mindset</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <div class="section-label"  style="font-size: 45px;">Projects</div>
+          </div>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card featured">
+            <div>
+              <h3>ArtFolio</h3>
+              <p>
+                ArtFolio is a full-stack portfolio tracker that records historical portfolio snapshots, manages a simple event calendar, tracks recent ETF closes, and offers a beginner-friendly investing guide. Users can upload Excel files of company weights, view value and weight trends over time, edit or delete snapshots, monitor SPY/QQQ closes, plan events on a calendar, and read core investing principles.
+              </p>
+              <div class="project-meta">
+                <span class="tag">React</span>
+                <span class="tag">Full-Stack</span>
+                <span class="tag">Data Tracking</span>
+                <span class="tag">Portfolio Analytics</span>
+              </div>
+              <div class="project-links">
+                <a class="btn btn-primary" href="https://art-folio-git-main-arthurteng-2207s-projects.vercel.app/" target="_blank" rel="noopener">Live Demo</a>
+                <a class="btn btn-secondary" href="https://github.com/archonward/ArtFolio" target="_blank" rel="noopener">Repository</a>
+              </div>
+            </div>
+            <div class="project-visual" aria-hidden="true">
+              <div class="mock-line"></div>
+              <div class="mock-line"></div>
+              <div class="mock-line small"></div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h3>Full-Stack Forum Application</h3>
+            <p>
+              A modular web forum built with React, TypeScript, Go, and SQLite. I designed separate frontend and backend layers and a hierarchical relational data model for topics, posts, and comments. The RESTful APIs support full CRUD operations with input validation, structured error handling, and proper HTTP status codes. I configured secure communication with CORS middleware and applied role-based access control and least-privilege principles to harden the application.
+            </p>
+            <div class="project-meta">
+              <span class="tag">React</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Go</span>
+              <span class="tag">SQLite</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h3>Technical Interests &amp; Ongoing Growth</h3>
+            <p>
+              Outside formal coursework, I continue building practical depth through self-directed learning in PostgreSQL, relational design, web application testing, and secure engineering workflows. This ongoing exploration strengthens the quality of the systems I build and the way I think about reliability and maintainability.
+            </p>
+            <div class="project-meta">
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Burp Suite</span>
+              <span class="tag">Caido</span>
+              <span class="tag">Kali Linux</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-heading">
+            <div class="section-label"  style="font-size: 45px;">Contact</div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h3>Send a message</h3>
+            <div class="glass-card" style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.025);">
+              <form action="mailto:arthurteng@outlook.com" method="post" enctype="text/plain" style="display:grid; gap:0.9rem;">
+                <input type="text" name="name" placeholder="Your Name" required style="width:100%; padding:1rem; border-radius:16px; border:1px solid rgba(148,163,184,0.12); background:rgba(255,255,255,0.04); color:var(--text);">
+                <input type="email" name="email" placeholder="Your Email" required style="width:100%; padding:1rem; border-radius:16px; border:1px solid rgba(148,163,184,0.12); background:rgba(255,255,255,0.04); color:var(--text);">
+                <textarea name="message" rows="6" placeholder="Your Message" required style="width:100%; padding:1rem; border-radius:16px; border:1px solid rgba(148,163,184,0.12); background:rgba(255,255,255,0.04); color:var(--text); resize:vertical;"></textarea>
+                <button type="submit" class="btn btn-primary" style="border:none; cursor:pointer; width:fit-content;">Send Message</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <h3>Professional Links</h3>
+            <div class="quick-links">
+              <a href="mailto:arthurteng@outlook.com"><span>arthurteng@outlook.com</span><span>↗</span></a>
+              <a href="tel:+6588694566"><span>(+65) 8869 4566</span><span>↗</span></a>
+              <a href="https://github.com/archonward" target="_blank" rel="noopener"><span>GitHub / archonward</span><span>↗</span></a>
+              <a href="https://www.linkedin.com/in/arthur-teng-bb09b7271/" target="_blank" rel="noopener"><span>LinkedIn / Arthur Teng</span><span>↗</span></a>
+            </div>
+            <div class="tag-group" style="margin-top: 1.25rem;">
+              <span class="tag">Open to internships</span>
+              <span class="tag">Full-stack development</span>
+              <span class="tag">Backend systems</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-wrap">
+      <p>© 2026 Arthur Teng. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
