@@ -306,10 +306,12 @@ nav a:focus-visible {
   position: static;
   width: auto;
   padding: 0;
-  display: grid;
-  gap: 1.5rem;
-  align-content: end;
+  margin-top: 2rem;
   pointer-events: auto;
+}
+
+.hero-side > * + * {
+  margin-top: 1.5rem;
 }
 
 .profile-panel {
