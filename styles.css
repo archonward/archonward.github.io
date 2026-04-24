@@ -832,3 +832,26 @@ footer {
     font-size: 0.88rem;
   }
 }
+
+.nav-wrap::-webkit-scrollbar {
+  width: 3px;
+}
+
+.nav-wrap::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nav-wrap::-webkit-scrollbar-thumb {
+  background: rgba(125, 211, 252, 0.2);
+  border-radius: 999px;
+}
+
+.nav-wrap::-webkit-scrollbar-thumb:hover {
+  background: rgba(125, 211, 252, 0.4);
+}
+
+.nav-wrap {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(125, 211, 252, 0.2) transparent;
+}
+
